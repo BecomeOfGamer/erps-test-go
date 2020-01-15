@@ -72,7 +72,7 @@ func main() {
 	//off trace output and set the default message handler
 	e.Init(MqttChan)
 	//go func() {
-	opts := MQTT.NewClientOptions().AddBroker("59.126.81.58:1883")
+	opts := MQTT.NewClientOptions().AddBroker("114.32.129.195:1883")
 	opts.SetClientID(generate_client_id())
 	opts.SetDefaultPublishHandler(f)
 

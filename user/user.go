@@ -32,9 +32,7 @@ type User struct {
 func (u *User) Next_action(tx chan<-m.MqttMsg, rooms *map[string]*RoomRecord  ) {
 	rand.Seed(time.Now().UnixNano())
 	rng := rand.Intn(10)
-	if (rng > 4) {
-		return 
-	}
+	
 	if (u.Cnt >= 0 && u.Cnt < 10 || u.IsPlaying) {
 		u.Cnt += 1
 		return
@@ -195,7 +193,17 @@ func (u *User) Start_queue(tx chan<-m.MqttMsg) {
 	}
 	if (!u.IsStartQueue) {
 		topic := "room/" + u.Room + "/send/start_queue"
-		msg := `{"id":"`+ u.Id + `", "action":"start queue"}`
+		rng := rand.Intn(20)
+		var msg string
+		if (rng < 5) {
+			msg = `{"id":"`+ u.Id + `", "action":"start queue", "mode":"rk1p2t"}`
+		} else if (rng < 10) {
+			msg = `{"id":"`+ u.Id + `", "action":"start queue", "mode":"ng1p2t"}`
+		} else if (rng < 15) {
+			msg = `{"id":"`+ u.Id + `", "action":"start queue", "mode":"rk5p2t"}`
+		} else if (rng < 20){
+			msg = `{"id":"`+ u.Id + `", "action":"start queue", "mode":"ng5p2t"}`
+		}
 		tx <- m.MqttMsg{Topic: topic, Msg: msg}
 	}
 }

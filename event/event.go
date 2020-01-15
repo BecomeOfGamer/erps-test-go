@@ -170,7 +170,7 @@ func Init(msgtx chan<-m.MqttMsg){
 	TotalUsers := map[string]*u.User{}
 	rooms := map[string]*u.RoomRecord{}
 
-	for i:=0; i<10; i++{
+	for i:=0; i<100; i++{
 		TotalUsers[fmt.Sprintf("%d", i)] = &u.User{
 			Id: fmt.Sprintf("%d", i), 
 			Hero: "", 
